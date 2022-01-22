@@ -1,12 +1,12 @@
 package org.example.currencyconversionapi.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.AbstractMap;
-import java.util.Map;
 
 @Configuration
 public class ExchangeRateApiConfig {
@@ -20,18 +20,18 @@ public class ExchangeRateApiConfig {
     @Value("${exchangeRateApi.accessKey}")
     private String accessKey;
 
-    @Value("${exchangeRateApi.format}")
-    private String format;
-
     @Bean
     public WebClient getWebClient() {
-        Map<String, String> defaultQueryParams = Map.ofEntries(
-                new AbstractMap.SimpleEntry<>("access_key", accessKey),
-                new AbstractMap.SimpleEntry<>("format", format));
-
         return WebClient.builder()
                 .baseUrl(url + path)
-                .defaultUriVariables(defaultQueryParams)
                 .build();
+    }
+
+    @Bean
+    @Qualifier("exchangeRateApiDefaultQueryParams")
+    public MultiValueMap<String, String> getDefaultQueryParams() {
+        MultiValueMap<String, String> defaultQueryParams = new LinkedMultiValueMap<>();
+        defaultQueryParams.add("access_key", accessKey);
+        return defaultQueryParams;
     }
 }
