@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.util.Optional;
 
 @Service
-public class CurrencyConversionService {
+public class CurrencyTransactionService {
 
     @Autowired
     private ExchangeRateApiService exchangeRateApiService;

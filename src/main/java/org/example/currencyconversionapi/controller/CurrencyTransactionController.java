@@ -1,7 +1,7 @@
 package org.example.currencyconversionapi.controller;
 
 import org.example.currencyconversionapi.model.CurrencyTransaction;
-import org.example.currencyconversionapi.service.CurrencyConversionService;
+import org.example.currencyconversionapi.service.CurrencyTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -14,18 +14,18 @@ import java.math.BigDecimal;
 public class CurrencyTransactionController {
 
     @Autowired
-    private CurrencyConversionService currencyConversionService;
+    private CurrencyTransactionService currencyTransactionService;
 
-    @GetMapping("/makeConversion")
+    @GetMapping("/conversion")
     public Mono<CurrencyTransaction> makeConversion(@RequestParam("userId") Long userId,
                                                     @RequestParam("originCurrency") String originCurrency,
                                                     @RequestParam("originValue") BigDecimal originValue,
                                                     @RequestParam("destinationCurrency") String destinationCurrency) {
-        return currencyConversionService.makeConversion(userId, originCurrency, originValue, destinationCurrency);
+        return currencyTransactionService.makeConversion(userId, originCurrency, originValue, destinationCurrency);
     }
 
     @GetMapping("/user/{userId}")
     public Flux<CurrencyTransaction> getAllCurrencyTransactions(@PathVariable("userId") Long userId) {
-        return currencyConversionService.getAllCurrencyTransactions(userId);
+        return currencyTransactionService.getAllCurrencyTransactions(userId);
     }
 }
