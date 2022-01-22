@@ -1,5 +1,8 @@
 package org.example.currencyconversionapi.enums;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Currency {
     BRL("BRL"),
     USD("USD"),
@@ -14,5 +17,9 @@ public enum Currency {
 
     public String getValue() {
         return value;
+    }
+
+    public static Optional<Currency> getCurrency(String value) {
+        return Arrays.stream(values()).filter(currency -> currency.value.equals(value)).findFirst();
     }
 }
