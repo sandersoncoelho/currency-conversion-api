@@ -1,16 +1,24 @@
 package org.example.currencyconversionapi.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
+@Entity
 public class CurrencyTransaction {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long currencyTransactionId;
     private Long userId;
     private String originCurrency;
     private BigDecimal originValue;
     private String destinationCurrency;
+    private BigDecimal destinationValue;
     private BigDecimal conversionRate;
-    private LocalDateTime dateTimeTransaction;
+    private Instant dateTimeTransaction;
 
     public Long getCurrencyTransactionId() {
         return currencyTransactionId;
@@ -52,6 +60,14 @@ public class CurrencyTransaction {
         this.destinationCurrency = destinationCurrency;
     }
 
+    public BigDecimal getDestinationValue() {
+        return destinationValue;
+    }
+
+    public void setDestinationValue(BigDecimal destinationValue) {
+        this.destinationValue = destinationValue;
+    }
+
     public BigDecimal getConversionRate() {
         return conversionRate;
     }
@@ -60,11 +76,11 @@ public class CurrencyTransaction {
         this.conversionRate = conversionRate;
     }
 
-    public LocalDateTime getDateTimeTransaction() {
+    public Instant getDateTimeTransaction() {
         return dateTimeTransaction;
     }
 
-    public void setDateTimeTransaction(LocalDateTime dateTimeTransaction) {
+    public void setDateTimeTransaction(Instant dateTimeTransaction) {
         this.dateTimeTransaction = dateTimeTransaction;
     }
 }
