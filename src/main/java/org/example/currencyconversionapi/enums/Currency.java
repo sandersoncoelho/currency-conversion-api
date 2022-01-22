@@ -7,7 +7,12 @@ public enum Currency {
     JPY("JPY");
 
     private String value;
+
     private Currency(String value) {
         this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }
