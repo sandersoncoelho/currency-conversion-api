@@ -3,10 +3,7 @@ package org.example.currencyconversionapi.controller;
 import org.example.currencyconversionapi.model.CurrencyTransaction;
 import org.example.currencyconversionapi.service.CurrencyConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -19,11 +16,11 @@ public class CurrencyTransactionController {
     @Autowired
     private CurrencyConversionService currencyConversionService;
 
-    @GetMapping("/user/{userId}/origin/{originCurrency}/destination/{destinationCurrency}")
-    public Mono<CurrencyTransaction> makeConversion(@PathVariable("userId") Long userId,
-                                                    @PathVariable("originCurrency") String originCurrency,
-                                                    @PathVariable("originValue") BigDecimal originValue,
-                                                    @PathVariable("destinationCurrency") String destinationCurrency) {
+    @GetMapping("/makeConversion")
+    public Mono<CurrencyTransaction> makeConversion(@RequestParam("userId") Long userId,
+                                                    @RequestParam("originCurrency") String originCurrency,
+                                                    @RequestParam("originValue") BigDecimal originValue,
+                                                    @RequestParam("destinationCurrency") String destinationCurrency) {
         return currencyConversionService.makeConversion(userId, originCurrency, originValue, destinationCurrency);
     }
 
