@@ -3,14 +3,14 @@ package org.example.currencyconversionapi.model.exchangerateapi;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ExchangeRateApiResponse {
     private Boolean success;
     private Instant timestamp;
     private String base;
     private LocalDate date;
-    private LinkedHashMap<String, BigDecimal> rates;
+    private Map<String, BigDecimal> rates;
 
     public Boolean getSuccess() {
         return success;
@@ -44,11 +44,11 @@ public class ExchangeRateApiResponse {
         this.date = date;
     }
 
-    public LinkedHashMap<String, BigDecimal> getRates() {
+    public Map<String, BigDecimal> getRates() {
         return rates;
     }
 
-    public void setRates(LinkedHashMap<String, BigDecimal> rates) {
+    public void setRates(Map<String, BigDecimal> rates) {
         this.rates = rates;
     }
 }
