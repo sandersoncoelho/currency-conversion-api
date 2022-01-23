@@ -11,12 +11,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sleepy-bastion-58959.herokuapp.com/currency-transaction/user/1",
-					"protocol": "https",
+					"raw": "{{application_url}}/currency-transaction/user/1",
 					"host": [
-						"sleepy-bastion-58959",
-						"herokuapp",
-						"com"
+						"{{application_url}}"
 					],
 					"path": [
 						"currency-transaction",
@@ -33,12 +30,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sleepy-bastion-58959.herokuapp.com/currency-transaction/conversion?userId=1&originCurrency=EUR&originValue=45.34&destinationCurrency=USD",
-					"protocol": "https",
+					"raw": "{{application_url}}/currency-transaction/conversion?userId=1&originCurrency=EUR&originValue=45.34&destinationCurrency=USD",
 					"host": [
-						"sleepy-bastion-58959",
-						"herokuapp",
-						"com"
+						"{{application_url}}"
 					],
 					"path": [
 						"currency-transaction",
@@ -65,6 +59,26 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
