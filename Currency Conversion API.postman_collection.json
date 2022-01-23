@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "deb88b3b-7379-40ca-84b2-94e04bea284f",
+		"name": "Currency Conversion API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List currency transactions by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sleepy-bastion-58959.herokuapp.com/currency-transaction/user/1",
+					"protocol": "https",
+					"host": [
+						"sleepy-bastion-58959",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"currency-transaction",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get currency conversion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sleepy-bastion-58959.herokuapp.com/currency-transaction/conversion?userId=1&originCurrency=EUR&originValue=45.34&destinationCurrency=USD",
+					"protocol": "https",
+					"host": [
+						"sleepy-bastion-58959",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"currency-transaction",
+						"conversion"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						},
+						{
+							"key": "originCurrency",
+							"value": "EUR"
+						},
+						{
+							"key": "originValue",
+							"value": "45.34"
+						},
+						{
+							"key": "destinationCurrency",
+							"value": "USD"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
