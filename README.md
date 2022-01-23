@@ -5,7 +5,7 @@ web service with Spring WebFlux and embedded database. This application
 can make conversion between currencies accessing a external service,
 [ExchangeRateApi](http://api.exchangeratesapi.io).
 
-##Environment
+## Environment
 * Java 11
 * Gradle 7.3.3
 * Git
