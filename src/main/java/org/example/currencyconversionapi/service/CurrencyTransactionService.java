@@ -1,6 +1,7 @@
 package org.example.currencyconversionapi.service;
 
 import org.example.currencyconversionapi.enums.Currency;
+import org.example.currencyconversionapi.exceptions.NoSuchCurrencyException;
 import org.example.currencyconversionapi.model.CurrencyTransaction;
 import org.example.currencyconversionapi.repository.CurrencyTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class CurrencyTransactionService {
 
     public Mono<CurrencyTransaction> makeConversion(Long userId, String originCurrency, BigDecimal originValue,
                                                     String destinationCurrency) {
+        if (!isValidCurrencies(originCurrency, destinationCurrency))
+            return Mono.error(new NoSuchCurrencyException("Invalid currency"));
+
         return exchangeRateApiService.getConversion(getCurrency(originCurrency))
                 .flatMap(exchangeRateApiResponse -> {
                     BigDecimal conversionRate = exchangeRateApiResponse.getRates().get(destinationCurrency);
@@ -38,6 +42,12 @@ public class CurrencyTransactionService {
 
                     return Mono.just(currencyTransactionRepository.save(currencyTransaction));
         });
+    }
+
+    private boolean isValidCurrencies(String originCurrency, String destinationCurrency) {
+        Currency origin = getCurrency(originCurrency);
+        Currency destination = getCurrency(destinationCurrency);
+        return origin != null && destination != null;
     }
 
     private Currency getCurrency(String currencyValue) {

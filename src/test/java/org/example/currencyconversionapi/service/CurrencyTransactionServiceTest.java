@@ -1,6 +1,7 @@
 package org.example.currencyconversionapi.service;
 
 import org.example.currencyconversionapi.enums.Currency;
+import org.example.currencyconversionapi.exceptions.NoSuchCurrencyException;
 import org.example.currencyconversionapi.model.CurrencyTransaction;
 import org.example.currencyconversionapi.model.exchangerateapi.ExchangeRateApiResponse;
 import org.example.currencyconversionapi.repository.CurrencyTransactionRepository;
@@ -90,6 +91,28 @@ public class CurrencyTransactionServiceTest {
         ExchangeRateApiResponse exchangeRateApiResponse = new ExchangeRateApiResponse();
         exchangeRateApiResponse.setRates(Map.of(destinationCurrency, conversionRate));
         return exchangeRateApiResponse;
+    }
+
+    @Test
+    public void makeConversionFailWithInvalidOriginCurrencyTest() {
+        Mono<CurrencyTransaction> currencyTransactionMono = currencyTransactionService
+                .makeConversion(userId, "ASDF", originValue, destinationCurrency);
+
+        StepVerifier
+                .create(currencyTransactionMono)
+                .expectErrorMatches(throwable -> throwable instanceof NoSuchCurrencyException)
+                .verify();
+    }
+
+    @Test
+    public void makeConversionFailWithInvalidDestinationCurrencyTest() {
+        Mono<CurrencyTransaction> currencyTransactionMono = currencyTransactionService
+                .makeConversion(userId, originCurrency, originValue, "ASDF");
+
+        StepVerifier
+                .create(currencyTransactionMono)
+                .expectErrorMatches(throwable -> throwable instanceof NoSuchCurrencyException)
+                .verify();
     }
 
     @Test
