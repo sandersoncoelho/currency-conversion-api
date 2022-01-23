@@ -1,6 +1,7 @@
 package org.example.currencyconversionapi.service;
 
 import org.example.currencyconversionapi.enums.Currency;
+import org.example.currencyconversionapi.exceptions.ExchangeRateApiException;
 import org.example.currencyconversionapi.model.exchangerateapi.ExchangeRateApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,8 @@ public class ExchangeRateApiService {
                 .queryParams(exchangeRateApiDefaultQueryParams)
                 .queryParam("base", currency.getValue())
                 .build())
-                .retrieve().bodyToMono(ExchangeRateApiResponse.class);
+                .retrieve().bodyToMono(ExchangeRateApiResponse.class)
+                .onErrorResume(throwable -> Mono.error(
+                        new ExchangeRateApiException("Failed on connecting to ExchangeRateApi: " + throwable.getMessage())));
     }
 }
